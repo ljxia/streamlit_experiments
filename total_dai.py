@@ -31,7 +31,6 @@ get_label = lambda c: c["label"]
 
 def make_area_chart(url):
     data = load_data(url)
-    st.title(data.title)
     columns = data["columns"]
 
     cs = functools.reduce(
@@ -110,8 +109,19 @@ def make_area_chart(url):
     )
 
 
-# Side bar
-with st.sidebar:
+# Main dashboard
+left_col, right_col = st.beta_columns([4, 2])
+
+with left_col:
+    st.title("MAKERDAO")
+
+    date_range = st.date_input(
+        "Date range",
+        (datetime.date.today() - datetime.timedelta(days=7), datetime.date.today()),
+    )
+
+with right_col:
+    st.text("\n\n")
     st.markdown(
         (
             "- Use date range picker to change dates\n"
@@ -123,15 +133,8 @@ with st.sidebar:
     )
 
 
-# Main dashboard
-
-
 # Date-range dependent
 
-date_range = st.date_input(
-    "Date range",
-    (datetime.date.today() - datetime.timedelta(days=7), datetime.date.today()),
-)
 
 if len(date_range) == 2:
 
