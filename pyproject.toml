@@ -9,6 +9,7 @@ python = "^3.6"
 streamlit = "^0.82.0"
 watchdog = "^2.1.2"
 certifi = "^2020.12.5"
+streamlit-aggrid = "^0.1.9"
 
 [tool.poetry.dev-dependencies]
 
