@@ -4,6 +4,7 @@ import ssl
 import altair as alt
 import datetime
 import functools
+from flash_card import flash_card
 
 # Project setup
 st.set_page_config(page_title="Scout / Total Dai", page_icon=":coin:", layout="wide")
@@ -225,11 +226,13 @@ def make_big_text_card(url):
 
     st.subheader("%s (%s)" % (data.title, value_vars[0]))
 
-    st.write(
-        "<div style='font-size: 4vw;display: flex;white-space: wrap'>{:,.2f}</div>".format(
-            data["rows"][0][1]
-        ),
-        unsafe_allow_html=True,
+
+    flash_card(
+        data.title,
+        primary_text=data["rows"][0][1],
+        secondary_text=value_vars[0],
+        formatter="0,0.00a",
+        key="normal",
     )
 
 
@@ -250,6 +253,7 @@ COLLATERAL_BREAKDOWN_DATA_URL = "https://scout.cool/supermax/api/v2/charts/previ
 c1, c2 = st.beta_columns(2)
 with c1:
     make_big_text_card(TOTAL_COLLATERAL_DATA_URL)
+
 with c2:
     make_pie_chart(COLLATERAL_BREAKDOWN_DATA_URL, category_name="Currency")
 
